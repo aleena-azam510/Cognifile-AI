@@ -1,0 +1,58 @@
+[
+    {
+        "question": "What skin diseases are discussed in the document?",
+        "expected_keywords": [
+            "melanoma",
+            "fungal infections",
+            "eczema",
+            "psoriasis",
+            "acne vulgaris"
+        ],
+        "type": "relevant"
+    },
+    {
+        "question": "What deep learning model is used for skin disease classification?",
+        "expected_keywords": [
+            "cnn",
+            "convolutional neural network"
+        ],
+        "type": "relevant"
+    },
+    {
+    "question": "Why is an AI-based skin disease diagnosis system needed?",
+    "expected_keywords": [
+        "accurate",
+        "timely",
+        "diagnosis",
+        "dermatologists",
+        "diagnostic delays"
+    ],
+    "type": "relevant"
+},
+{
+    "question": "Which technology is used for image classification?",
+    "expected_keywords": [
+        "CNN",
+        "convolutional neural network"
+    ],
+    "type": "relevant"
+},
+{
+    "question": "What dataset is used to train the model?",
+    "expected_keywords": [
+        "dataset",
+        "training"
+    ],
+    "type": "relevant"
+},
+    {
+        "question": "What is the population of Japan?",
+        "expected_keywords": [],
+        "type": "irrelevant"
+    },
+    {
+        "question": "What are the symptoms of diabetes?",
+        "expected_keywords": [],
+        "type": "irrelevant"
+    }
+]

@@ -1,0 +1,46 @@
+
+# Virtual environments
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# VS Code settings
+.vscode/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Qdrant database
+qdrant_data/
+
+# Uploaded documents
+uploads/
+
+# SQLite database
+documind.db*
+
+# Frontend dependencies and builds
+frontend/node_modules/
+frontend/dist/
+
+# Logs
+*.log
+
+# Local diagnostic scripts (keep locally, exclude from Git)
+/debug_retrieval.py
+/reset_qdrant.py
+/test_*.py
