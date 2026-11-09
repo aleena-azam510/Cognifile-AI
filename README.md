@@ -95,7 +95,7 @@ Cognifile-AI/
 ### 1. Clone the repository
 
 ```bash
-[git clone YOUR_GITHUB_REPOSITORY_URL](https://github.com/aleena-azam510/Cognifile-AI.git)
+git clone https://github.com/aleena-azam510/Cognifile-AI.git
 cd Cognifile-AI
 ```
 
