@@ -1,8 +1,10 @@
-# DocuMind AI
+# Cognifile AI
 
-**An AI-powered document assistant that transforms PDF documents into searchable, interactive knowledge.**
+**Turn documents into intelligence.**
 
-DocuMind AI uses Retrieval-Augmented Generation (RAG) to help users ask questions about their PDF documents, retrieve relevant information through semantic search, and explore document topics through an interactive knowledge interface.
+An AI-powered document assistant that transforms PDF documents into searchable, interactive knowledge.
+
+Cognifile AI uses Retrieval-Augmented Generation (RAG) to help users ask questions about their PDF documents, retrieve relevant information through semantic search, and explore document topics through an interactive knowledge interface.
 
 ## Features
 
@@ -62,7 +64,7 @@ flowchart TD
 ## Project Structure
 
 ```text
-DocuMind-AI/
+Cognifile-AI/
 ├── app/
 │   ├── api/
 │   ├── core/
@@ -73,8 +75,8 @@ DocuMind-AI/
 ├── frontend/
 │   ├── src/
 │   └── package.json
+├── evaluation/
 ├── tests/
-├── sample_documents/
 ├── requirements.txt
 ├── pytest.ini
 ├── .env.example
@@ -94,10 +96,10 @@ DocuMind-AI/
 
 ```bash
 git clone YOUR_GITHUB_REPOSITORY_URL
-cd DocuMind-AI
+cd Cognifile-AI
 ```
 
-Replace `YOUR_GITHUB_REPOSITORY_URL` with your repository URL.
+Replace `YOUR_GITHUB_REPOSITORY_URL` with your GitHub repository URL.
 
 ### 2. Set up the backend
 
@@ -192,7 +194,7 @@ pytest -q
 
 ## Screenshots
 
-*Add screenshots of the application here.*
+Add screenshots of the application here.
 
 Recommended screenshots:
 
@@ -203,7 +205,7 @@ Recommended screenshots:
 
 ## Project Purpose
 
-DocuMind AI was developed as a portfolio project to demonstrate practical application of:
+Cognifile AI was developed as a portfolio project to demonstrate practical application of:
 
 - Full-stack web development
 - Retrieval-Augmented Generation (RAG)

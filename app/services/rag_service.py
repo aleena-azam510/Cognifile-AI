@@ -101,7 +101,7 @@ Content:
 
     # STEP 6: Create faithfulness-focused prompt
     prompt = f"""
-You are DocuMind AI, an intelligent document assistant.
+You are Cognifile AI, an intelligent document assistant.
 
 Answer the user's question using ONLY the provided
 document context.

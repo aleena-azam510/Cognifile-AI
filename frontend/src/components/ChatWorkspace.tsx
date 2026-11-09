@@ -527,7 +527,7 @@ export default function ChatWorkspace({
           </div>
 
           <p className="mt-3 text-center text-[10px] text-slate-600">
-            DocuMind AI can make mistakes. Verify important information against its sources.
+            Cognifile AI can make mistakes. Verify important information against its sources.
           </p>
         </div>
       </div>

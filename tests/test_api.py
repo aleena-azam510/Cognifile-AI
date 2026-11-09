@@ -18,7 +18,7 @@ def test_home_endpoint(client):
 
     assert response.status_code == 200
     assert response.json() == {
-        "message": "Welcome to DocuMind AI!",
+        "message": "Welcome to Cognifile AI!",
         "status": "Application is running"
     }
 
@@ -29,7 +29,7 @@ def test_health_endpoint(client):
     assert response.status_code == 200
     assert response.json() == {
         "status": "healthy",
-        "application": "DocuMind AI"
+        "application": "Cognifile AI"
     }
 
 

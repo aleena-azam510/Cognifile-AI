@@ -33,7 +33,7 @@ async def lifespan(app: FastAPI):
 
 # Create the FastAPI application
 app = FastAPI(
-    title="DocuMind AI",
+    title="Cognifile AI",
     description="Intelligent Document Assistant",
     version="1.0.0",
     lifespan=lifespan
@@ -52,7 +52,7 @@ class QuestionRequest(BaseModel):
 @app.get("/")
 def home():
     return {
-        "message": "Welcome to DocuMind AI!",
+        "message": "Welcome to Cognifile AI!",
         "status": "Application is running"
     }
 
@@ -62,7 +62,7 @@ def home():
 def health_check():
     return {
         "status": "healthy",
-        "application": "DocuMind AI"
+        "application": "Cognifile AI"
     }
 
 

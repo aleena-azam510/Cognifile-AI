@@ -284,10 +284,10 @@ function App() {
 
             <div>
               <p className="font-['Plus_Jakarta_Sans'] text-[17px] font-extrabold tracking-tight text-white">
-                DocuMind<span className="text-violet-400"> AI</span>
+                Cognifile<span className="text-violet-400"> AI</span>
               </p>
-              <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-slate-500">
-                Document intelligence
+              <p className="text-[9px] font-medium tracking-wide text-slate-500">
+                Turn documents into intelligence.
               </p>
             </div>
           </div>
@@ -363,7 +363,7 @@ function App() {
 
             <div className="flex items-center gap-3 border-t border-white/[0.07] px-1 pt-5">
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-linear-to-br from-indigo-400 to-violet-600 text-xs font-bold text-white">
-                DM
+                CI
               </div>
 
               <div className="min-w-0 flex-1">
@@ -430,7 +430,7 @@ function App() {
 
               <button className="flex items-center gap-2 rounded-xl border border-white/8 p-1.5 pr-3 transition hover:bg-white/5">
                 <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-violet-500/20 text-[10px] font-bold text-violet-300">
-                  DM
+                  CI
                 </div>
                 <ChevronDown size={14} className="text-slate-500" />
               </button>
@@ -945,7 +945,7 @@ function App() {
 
                   <footer className="mt-10 flex flex-col justify-between gap-2 border-t border-white/6 pt-5 text-[10px] text-slate-600 sm:flex-row">
                     <span>
-                      © 2026 DocuMind AI. Intelligent document workspace.
+                      © 2026 Cognifile AI. Turn documents into intelligence.
                     </span>
                     <span className="flex items-center gap-2">
                       <ShieldCheck size={12} />
