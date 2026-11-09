@@ -10,22 +10,23 @@ model = SentenceTransformer(MODEL_NAME)
 
 def generate_embedding(text: str) -> list[float]:
     """
-    Convert text into a numerical embedding vector.
+    Convert text into a normalized numerical embedding vector.
     """
 
     if not text.strip():
         raise ValueError("Cannot generate embedding for empty text.")
 
-    embedding = model.encode(text)
+    embedding = model.encode(
+        text,
+        normalize_embeddings=True
+    )
 
     return embedding.tolist()
 
+
 def generate_embeddings(chunks: list[dict]) -> list[dict]:
     """
-    Generate embeddings for multiple text chunks in batches.
-
-    Each chunk retains its original metadata and receives
-    an additional embedding field.
+    Generate normalized embeddings for multiple text chunks.
     """
 
     if not chunks:

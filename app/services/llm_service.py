@@ -1,4 +1,3 @@
-
 import os
 
 from dotenv import load_dotenv
@@ -17,11 +16,11 @@ client = genai.Client(
     http_options=types.HttpOptions(timeout=60000),
 )
 
-MODEL_NAME = "gemini-3.8-flash"
+MODEL_NAME = "gemini-3.5-flash-lite"
 
 
 def generate_answer(prompt: str) -> str:
-    """Generate an answer using Gemini without automatic retries."""
+    """Generate an answer using Gemini without application-level retries."""
 
     if not prompt.strip():
         raise ValueError("Prompt cannot be empty.")

@@ -12,7 +12,7 @@ SIMILARITY_THRESHOLD = 0.35
 def answer_question(
     question: str,
     document_ids: list[str] | None = None,
-    limit: int = 5
+    limit: int = 8
 ) -> dict:
     """
     Answer questions using retrieved document context.
