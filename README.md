@@ -1,86 +1,163 @@
 # Cognifile AI
 
-**Turn documents into intelligence.**
+### Turn documents into intelligence.
 
-An AI-powered document assistant that transforms PDF documents into searchable, interactive knowledge.
+Cognifile AI is an AI-powered document intelligence platform that transforms static PDF documents into searchable, interactive knowledge. Upload documents, ask questions in natural language, retrieve relevant information, and explore document topics through an intuitive dashboard.
 
-Cognifile AI uses Retrieval-Augmented Generation (RAG) to help users ask questions about their PDF documents, retrieve relevant information through semantic search, and explore document topics through an interactive knowledge interface.
+---
+
+## Overview
+
+Cognifile AI combines Retrieval-Augmented Generation (RAG), semantic search, and large language models to help users understand and interact with their documents.
+
+Instead of manually searching through lengthy PDFs, users can ask questions and receive context-aware answers grounded in the uploaded content.
 
 ## Features
 
-- **PDF Document Processing:** Upload and extract text from PDF documents.
-- **Semantic Chunking:** Divide document content into smaller, overlapping text chunks.
-- **AI Embeddings:** Generate vector embeddings using Sentence Transformers.
-- **Semantic Search:** Retrieve relevant document passages using Qdrant.
-- **AI Question Answering:** Generate context-aware answers using Google's Gemini API.
-- **Source References:** Display document sources and page references alongside answers.
-- **Topic Explorer:** Identify important topics and related document passages.
-- **Knowledge Connections:** Explore relationships between topics through an interactive graph.
-- **Document Management:** Upload, view, select, and delete documents.
+- **PDF Document Upload** — Upload and manage PDF documents.
+- **Intelligent Text Extraction** — Extract document content using PyMuPDF.
+- **Semantic Search** — Retrieve relevant document passages using vector embeddings.
+- **AI-Powered Q&A** — Ask questions and receive context-aware responses.
+- **Source-Grounded Responses** — Connect generated answers to relevant document content.
+- **Topic Intelligence** — Explore important topics extracted from document content.
+- **Interactive Dashboard** — Access document and AI features through a modern interface.
+- **RAG Pipeline** — Combine document retrieval with LLM-based response generation.
 
 ## Technology Stack
 
 | Layer | Technologies |
 |---|---|
 | Frontend | React, TypeScript, Vite |
-| UI & Styling | Tailwind CSS, Framer Motion, Lucide React |
+| Styling & UI | Tailwind CSS, Framer Motion, Lucide React |
 | Backend | Python, FastAPI |
 | PDF Processing | PyMuPDF |
 | Embeddings | Sentence Transformers (`all-MiniLM-L6-v2`) |
 | Vector Database | Qdrant |
-| Language Model | Google Gemini API |
-| Database | SQLite |
+| Metadata Storage | SQLite |
+| AI Generation | Google Gemini API |
 | Testing | Pytest |
 
-## Architecture
+## System Architecture
+
+The architecture is organized into four main layers: frontend, backend processing, data storage, and AI generation.
 
 ```mermaid
-flowchart TD
-    A[User] --> B[React Frontend]
-    B --> C[FastAPI Backend]
+flowchart TB
+    USER(["User"])
 
-    C --> D[PDF Processing]
-    D --> E[Text Extraction]
-    E --> F[Text Chunking]
-    F --> G[Sentence Transformers]
+    subgraph FRONTEND["FRONTEND — React + TypeScript"]
+        direction TB
+        DASH["Cognifile AI Dashboard"]
+        UPLOAD["PDF Upload & Document Library"]
+        CHAT["AI Chat Assistant"]
+        TOPICS["Topic Intelligence"]
+        DASH --> UPLOAD
+        DASH --> CHAT
+        DASH --> TOPICS
+    end
 
-    G --> H[Vector Embeddings]
-    H --> I[Qdrant Vector Database]
+    subgraph BACKEND["BACKEND — FastAPI"]
+        direction TB
+        API["REST API"]
 
-    B --> J[User Question]
-    J --> C
-    C --> K[Question Embedding]
-    K --> I
+        subgraph INGEST["DOCUMENT INGESTION PIPELINE"]
+            direction LR
+            EXTRACT["PDF Text Extraction<br/>PyMuPDF"]
+            CHUNK["Text Chunking"]
+            EMBED["Embedding Generation<br/>Sentence Transformers"]
+            EXTRACT --> CHUNK --> EMBED
+        end
 
-    I --> L[Relevant Document Chunks]
-    L --> M[Gemini API]
-    M --> N[Answer with Source References]
-    N --> B
+        subgraph QUERY["RETRIEVAL & RESPONSE PIPELINE"]
+            direction LR
+            SEARCH["Semantic Search"]
+            CONTEXT["Context Assembly"]
+            GENERATE["Answer Generation"]
+            SEARCH --> CONTEXT --> GENERATE
+        end
+    end
 
-    C --> O[SQLite Database]
-    C --> P[Topic Explorer]
+    subgraph STORAGE["DATA & VECTOR STORAGE"]
+        direction TB
+        FILES[("Uploaded PDF Files")]
+        SQLITE[("SQLite<br/>Document Metadata")]
+        QDRANT[("Qdrant<br/>Vector Database")]
+    end
+
+    subgraph AI["AI GENERATION"]
+        direction TB
+        GEMINI["Google Gemini API"]
+        RESPONSE["Grounded Answer<br/>+ Source References"]
+        GEMINI --> RESPONSE
+    end
+
+    USER --> DASH
+    UPLOAD -->|"Upload document"| API
+    API --> EXTRACT
+    API --> FILES
+    API --> SQLITE
+    EMBED -->|"Store vectors"| QDRANT
+
+    CHAT -->|"Ask question"| API
+    API --> SEARCH
+    QDRANT -->|"Relevant chunks"| SEARCH
+    GENERATE --> GEMINI
+    RESPONSE -->|"Answer with context"| CHAT
+
+    TOPICS -->|"Topic request"| API
+    API -->|"Topic results"| TOPICS
+
+    classDef frontend fill:#172554,stroke:#60A5FA,color:#EFF6FF
+    classDef backend fill:#312E81,stroke:#A78BFA,color:#F5F3FF
+    classDef storage fill:#134E4A,stroke:#2DD4BF,color:#F0FDFA
+    classDef ai fill:#581C87,stroke:#C084FC,color:#FAF5FF
+
+    class DASH,UPLOAD,CHAT,TOPICS frontend
+    class API,EXTRACT,CHUNK,EMBED,SEARCH,CONTEXT,GENERATE backend
+    class FILES,SQLITE,QDRANT storage
+    class GEMINI,RESPONSE ai
 ```
+
+## How It Works
+
+### 1. Document Ingestion
+
+1. The user uploads a PDF document.
+2. PyMuPDF extracts the document text.
+3. Extracted text is divided into smaller chunks.
+4. Sentence Transformers generates vector embeddings.
+5. Document metadata is stored in SQLite, while embeddings are stored in Qdrant.
+
+### 2. Question Answering
+
+1. The user submits a natural-language question.
+2. The question is processed by the backend.
+3. Semantic search retrieves relevant document chunks from Qdrant.
+4. Retrieved content is assembled into contextual information.
+5. Google Gemini generates a response using the retrieved context.
+6. The frontend displays the answer and available source references.
 
 ## Project Structure
 
 ```text
 Cognifile-AI/
+│
 ├── app/
-│   ├── api/
-│   ├── core/
-│   ├── models/
-│   ├── schemas/
-│   ├── services/
-│   └── main.py
-├── frontend/
-│   ├── src/
-│   └── package.json
+│   └── Backend application and processing modules
+│
 ├── evaluation/
+│   └── Evaluation resources
+│
+├── frontend/
+│   └── React + TypeScript application
+│
 ├── tests/
-├── requirements.txt
-├── pytest.ini
+│   └── Backend test suite
+│
 ├── .env.example
 ├── .gitignore
+├── pytest.ini
+├── requirements.txt
 └── README.md
 ```
 
@@ -88,132 +165,103 @@ Cognifile-AI/
 
 ### Prerequisites
 
-- Python 3.12
+- Python 3.10+
 - Node.js and npm
-- A Google Gemini API key
+- Git
+- Google Gemini API key
 
-### 1. Clone the repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/aleena-azam510/Cognifile-AI.git
 cd Cognifile-AI
 ```
 
-
-### 2. Set up the backend
+### 2. Backend Setup
 
 Create and activate a virtual environment:
 
-```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
+```bash
+python -m venv venv
 ```
 
-Install Python dependencies:
+Windows PowerShell:
 
 ```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+Install backend dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
-### 3. Configure environment variables
+### 3. Environment Configuration
 
-Create a `.env` file in the project root using `.env.example` as a template.
-
-Add your Gemini API key:
-
-```env
-GEMINI_API_KEY=your_gemini_api_key_here
-```
-
-Keep your actual `.env` file private. Never commit API keys to GitHub.
-
-### 4. Start the backend
+Create a `.env` file using the example configuration:
 
 ```powershell
-python -m uvicorn app.main:app --reload
+Copy-Item .env.example .env
 ```
 
-Backend URL:
+Add your required API credentials and configuration values to `.env`.
 
-`http://127.0.0.1:8000`
+**Important:** Never commit your actual API keys or `.env` file to GitHub.
 
-API health check:
+### 4. Frontend Setup
 
-`http://127.0.0.1:8000/health`
+Open a terminal in the frontend directory:
 
-### 5. Set up the frontend
-
-Open a second terminal:
-
-```powershell
+```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Frontend URL:
+Open the local development URL displayed by Vite in your browser.
 
-`http://localhost:5173`
+### 5. Run Backend Tests
 
-## API Endpoints
+From the project root, with the Python virtual environment activated:
 
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/health` | Check backend health |
-| POST | `/upload-pdf` | Upload and process a PDF |
-| GET | `/documents` | Retrieve uploaded documents |
-| GET | `/documents/{id}/topics` | Retrieve document topics |
-| DELETE | `/documents/{id}` | Delete a document and its associated data |
-| POST | `/ask` | Ask a question about selected documents |
-
-Interactive API documentation is available at:
-
-`http://127.0.0.1:8000/docs`
-
-## Running Tests
-
-Run the backend test suite from the project root:
-
-```powershell
+```bash
 pytest -q
 ```
 
-## RAG Workflow
+## Testing
 
-1. A user uploads a PDF document.
-2. The backend extracts its text.
-3. The extracted content is divided into overlapping chunks.
-4. Sentence Transformers converts chunks into vector embeddings.
-5. Qdrant stores the embeddings for semantic retrieval.
-6. A user submits a question.
-7. The question is converted into an embedding and matched against stored vectors.
-8. Relevant passages are supplied as context to Gemini.
-9. Gemini generates an answer grounded in the retrieved passages.
-10. The application presents the answer with available source references.
+The backend test suite has been validated with **62 passing tests**.
 
-## Screenshots
+Testing covers the implemented backend functionality and helps verify application behavior during development.
 
-Add screenshots of the application here.
+## Core Concepts
 
-Recommended screenshots:
+| Concept | Purpose |
+|---|---|
+| Retrieval-Augmented Generation | Grounds AI responses in retrieved document content |
+| Text Chunking | Divides documents into manageable passages |
+| Vector Embeddings | Represents text as numerical vectors |
+| Semantic Search | Finds content based on meaning rather than exact keywords |
+| Vector Database | Stores and retrieves document embeddings |
+| Context Assembly | Prepares relevant passages for AI generation |
 
-- Dashboard and document library
-- AI Assistant with an answer and source references
-- Intelligence Hub topic explorer
-- Knowledge Connections graph
+## Future Enhancements
 
-## Project Purpose
+- Improved document comparison and analysis.
+- Expanded document intelligence capabilities.
+- More advanced retrieval and ranking strategies.
+- Additional evaluation and performance monitoring.
 
-Cognifile AI was developed as a portfolio project to demonstrate practical application of:
+## Author
 
-- Full-stack web development
-- Retrieval-Augmented Generation (RAG)
-- Semantic search and vector databases
-- Large Language Model integration
-- Document processing and information retrieval
-- Interactive data visualization
-- REST API development
+**Aleena Azam**
+
+AI & Software Engineer
+
+- GitHub: [aleena-azam510](https://github.com/aleena-azam510)
+- Repository: [Cognifile AI](https://github.com/aleena-azam510/Cognifile-AI)
 
 ---
 
-**Built with Python, React, and AI.**
+*Built to make document understanding smarter, faster, and more accessible.*
