@@ -2,36 +2,60 @@
 
 ### Turn documents into intelligence.
 
-Cognifile AI is an AI-powered document intelligence platform that transforms static PDF documents into searchable, interactive knowledge. Upload documents, ask questions in natural language, retrieve relevant information, and explore document topics through an intuitive dashboard.
+Cognifile AI is an AI-powered document intelligence platform designed to transform static PDF documents into searchable, interactive knowledge.
+
+Upload documents, explore their content, ask questions in natural language, and discover meaningful topics through an intuitive dashboard.
 
 ---
 
 ## Overview
 
-Cognifile AI combines Retrieval-Augmented Generation (RAG), semantic search, and large language models to help users understand and interact with their documents.
+Cognifile AI combines Retrieval-Augmented Generation (RAG), semantic search, vector embeddings, and large language models to make document understanding more efficient.
 
-Instead of manually searching through lengthy PDFs, users can ask questions and receive context-aware answers grounded in the uploaded content.
+Instead of manually searching through lengthy documents, users can retrieve relevant information and interact with their document content through an AI-powered interface.
+
+## Screenshots
+
+### Main Dashboard
+
+![Cognifile AI Main Dashboard](docs/screenshots/main%20page.png)
+
+### My Documents
+
+![Cognifile AI Document Library](docs/screenshots/my_documents.png)
+
+### Document Intelligence
+
+![Cognifile AI Document Intelligence](docs/screenshots/document_intelligence.png)
+
+### AI Assistant
+
+![Cognifile AI Assistant](docs/screenshots/ai%20assistant.png)
 
 ## Features
 
 - **PDF Document Upload** — Upload and manage PDF documents.
 - **Intelligent Text Extraction** — Extract document content using PyMuPDF.
-- **Semantic Search** — Retrieve relevant document passages using vector embeddings.
-- **AI-Powered Q&A** — Ask questions and receive context-aware responses.
-- **Source-Grounded Responses** — Connect generated answers to relevant document content.
+- **Semantic Search** — Retrieve relevant passages using vector embeddings.
+- **AI-Powered Q&A** — Ask questions about uploaded documents using natural language.
+- **Context-Aware Responses** — Generate answers grounded in retrieved document content.
+- **Source References** — Connect responses to relevant document passages.
 - **Topic Intelligence** — Explore important topics extracted from document content.
-- **Interactive Dashboard** — Access document and AI features through a modern interface.
-- **RAG Pipeline** — Combine document retrieval with LLM-based response generation.
+- **Interactive Dashboard** — Manage documents and access intelligence features through a modern interface.
+- **RAG Pipeline** — Combine semantic retrieval with LLM-based response generation.
 
 ## Technology Stack
 
 | Layer | Technologies |
 |---|---|
 | Frontend | React, TypeScript, Vite |
-| Styling & UI | Tailwind CSS, Framer Motion, Lucide React |
+| Styling | Tailwind CSS |
+| Animations | Framer Motion |
+| Icons | Lucide React |
 | Backend | Python, FastAPI |
 | PDF Processing | PyMuPDF |
-| Embeddings | Sentence Transformers (`all-MiniLM-L6-v2`) |
+| Embeddings | Sentence Transformers |
+| Embedding Model | all-MiniLM-L6-v2 |
 | Vector Database | Qdrant |
 | Metadata Storage | SQLite |
 | AI Generation | Google Gemini API |
@@ -39,7 +63,7 @@ Instead of manually searching through lengthy PDFs, users can ask questions and 
 
 ## System Architecture
 
-The architecture is organized into four main layers: frontend, backend processing, data storage, and AI generation.
+Cognifile AI follows a modular architecture consisting of a frontend, backend processing layer, data storage layer, and AI generation layer.
 
 ```mermaid
 flowchart TB
@@ -51,6 +75,7 @@ flowchart TB
         UPLOAD["PDF Upload & Document Library"]
         CHAT["AI Chat Assistant"]
         TOPICS["Topic Intelligence"]
+
         DASH --> UPLOAD
         DASH --> CHAT
         DASH --> TOPICS
@@ -65,6 +90,7 @@ flowchart TB
             EXTRACT["PDF Text Extraction<br/>PyMuPDF"]
             CHUNK["Text Chunking"]
             EMBED["Embedding Generation<br/>Sentence Transformers"]
+
             EXTRACT --> CHUNK --> EMBED
         end
 
@@ -73,6 +99,7 @@ flowchart TB
             SEARCH["Semantic Search"]
             CONTEXT["Context Assembly"]
             GENERATE["Answer Generation"]
+
             SEARCH --> CONTEXT --> GENERATE
         end
     end
@@ -88,6 +115,7 @@ flowchart TB
         direction TB
         GEMINI["Google Gemini API"]
         RESPONSE["Grounded Answer<br/>+ Source References"]
+
         GEMINI --> RESPONSE
     end
 
@@ -122,20 +150,21 @@ flowchart TB
 
 ### 1. Document Ingestion
 
-1. The user uploads a PDF document.
+1. A user uploads a PDF document.
 2. PyMuPDF extracts the document text.
 3. Extracted text is divided into smaller chunks.
 4. Sentence Transformers generates vector embeddings.
-5. Document metadata is stored in SQLite, while embeddings are stored in Qdrant.
+5. Document metadata is stored in SQLite.
+6. Vector embeddings are stored in Qdrant.
 
-### 2. Question Answering
+### 2. Retrieval-Augmented Generation
 
-1. The user submits a natural-language question.
-2. The question is processed by the backend.
+1. A user submits a natural-language question.
+2. The backend processes the question.
 3. Semantic search retrieves relevant document chunks from Qdrant.
 4. Retrieved content is assembled into contextual information.
 5. Google Gemini generates a response using the retrieved context.
-6. The frontend displays the answer and available source references.
+6. The frontend displays the generated answer and available source references.
 
 ## Project Structure
 
@@ -143,7 +172,7 @@ flowchart TB
 Cognifile-AI/
 │
 ├── app/
-│   └── Backend application and processing modules
+│   └── Backend application
 │
 ├── evaluation/
 │   └── Evaluation resources
@@ -153,6 +182,13 @@ Cognifile-AI/
 │
 ├── tests/
 │   └── Backend test suite
+│
+├── docs/
+│   └── screenshots/
+│       ├── ai assistant.png
+│       ├── document_intelligence.png
+│       ├── main page.png
+│       └── my_documents.png
 │
 ├── .env.example
 ├── .gitignore
@@ -168,7 +204,7 @@ Cognifile-AI/
 - Python 3.10+
 - Node.js and npm
 - Git
-- Google Gemini API key
+- Google Gemini API key for AI response generation
 
 ### 1. Clone the Repository
 
@@ -179,19 +215,19 @@ cd Cognifile-AI
 
 ### 2. Backend Setup
 
-Create and activate a virtual environment:
+Create a virtual environment:
 
 ```bash
-python -m venv venv
+python -m venv .venv
 ```
 
-Windows PowerShell:
+Activate it on Windows PowerShell:
 
 ```powershell
-.\venv\Scripts\Activate.ps1
+.\.venv\Scripts\Activate.ps1
 ```
 
-Install backend dependencies:
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
@@ -199,31 +235,41 @@ pip install -r requirements.txt
 
 ### 3. Environment Configuration
 
-Create a `.env` file using the example configuration:
+Create your local environment file:
 
 ```powershell
 Copy-Item .env.example .env
 ```
 
-Add your required API credentials and configuration values to `.env`.
+Configure the required environment variables in `.env`, including your Gemini API credentials.
 
-**Important:** Never commit your actual API keys or `.env` file to GitHub.
+**Security:** Never commit your actual API keys or `.env` file to GitHub.
 
 ### 4. Frontend Setup
 
-Open a terminal in the frontend directory:
+Navigate to the frontend directory:
 
 ```bash
 cd frontend
+```
+
+Install dependencies:
+
+```bash
 npm install
+```
+
+Start the development server:
+
+```bash
 npm run dev
 ```
 
-Open the local development URL displayed by Vite in your browser.
+Open the local URL provided by Vite in your browser.
 
 ### 5. Run Backend Tests
 
-From the project root, with the Python virtual environment activated:
+From the project root, with your virtual environment activated:
 
 ```bash
 pytest -q
@@ -233,34 +279,34 @@ pytest -q
 
 The backend test suite has been validated with **62 passing tests**.
 
-Testing covers the implemented backend functionality and helps verify application behavior during development.
+The test suite helps verify implemented backend functionality and supports reliable development.
 
 ## Core Concepts
 
-| Concept | Purpose |
+| Concept | Description |
 |---|---|
 | Retrieval-Augmented Generation | Grounds AI responses in retrieved document content |
 | Text Chunking | Divides documents into manageable passages |
-| Vector Embeddings | Represents text as numerical vectors |
-| Semantic Search | Finds content based on meaning rather than exact keywords |
+| Vector Embeddings | Converts text into numerical representations |
+| Semantic Search | Finds content based on meaning |
 | Vector Database | Stores and retrieves document embeddings |
 | Context Assembly | Prepares relevant passages for AI generation |
 
 ## Future Enhancements
 
-- Improved document comparison and analysis.
-- Expanded document intelligence capabilities.
-- More advanced retrieval and ranking strategies.
+- Advanced document comparison and analysis.
+- Improved retrieval and ranking strategies.
+- Expanded topic intelligence capabilities.
 - Additional evaluation and performance monitoring.
 
 ## Author
 
 **Aleena Azam**
 
-AI & Software Engineer
+Computer Science Graduate | Application Trainer & Support
 
 - GitHub: [aleena-azam510](https://github.com/aleena-azam510)
-- Repository: [Cognifile AI](https://github.com/aleena-azam510/Cognifile-AI)
+- Project Repository: [Cognifile AI](https://github.com/aleena-azam510/Cognifile-AI)
 
 ---
 
